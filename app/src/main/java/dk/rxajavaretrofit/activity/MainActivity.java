@@ -10,6 +10,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dk.rxajavaretrofit.R;
+import dk.rxajavaretrofit.entity.Gank;
 import dk.rxajavaretrofit.entity.HttpEntity;
 import dk.rxajavaretrofit.http.HttpMethods;
 import rx.Subscriber;
@@ -27,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.click_me_BN)
-    public void onClick(){
+    @OnClick(R.id.click_me_BN1)
+    public void click_BN1(){
         getMovie();
+    }
+
+    @OnClick(R.id.click_me_BN2)
+    public void click_BN2(){
+        getGank();
     }
 
     private void getMovie(){
@@ -51,5 +57,26 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         HttpMethods.getInstance().getTopMovie(subscriber , 0 ,10);
+    }
+
+    private void getGank(){
+        subscriber = new Subscriber<Gank>() {
+            @Override
+            public void onCompleted() {
+                Toast.makeText(MainActivity.this, "完成加载",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                resultTV.setText(e.getMessage());
+            }
+
+            @Override
+            public void onNext(Gank gank) {
+                resultTV.setText(gank.toString());
+            }
+        };
+        HttpMethods.getInstance().getGankDate(subscriber , 0 ,10);
     }
 }
