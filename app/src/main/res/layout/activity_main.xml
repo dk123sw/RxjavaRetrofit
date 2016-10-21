@@ -5,26 +5,41 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="dk.rxajavaretrofit.activity.MainActivity">
 
-        <Button
-            android:id="@+id/click_me_BN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="5dp"
-            android:text="加载"
-            android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/click_me_BN1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="加载Https"
+        android:textSize="16sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/click_me_BN2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/result_TV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/click_me_BN"
+            android:layout_height="wrap_content"
             android:text="输出内容"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </ScrollView>
-
+    <Button
+        android:id="@+id/click_me_BN2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        android:text="加载Gank"
+        android:textSize="16sp"
+        android:layout_below="@+id/click_me_BN1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

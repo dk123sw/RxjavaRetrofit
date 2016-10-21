@@ -1,8 +1,8 @@
 package dk.rxajavaretrofit.activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -10,8 +10,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dk.rxajavaretrofit.R;
-import dk.rxajavaretrofit.entity.Gank;
+import dk.rxajavaretrofit.entity.GankDate;
 import dk.rxajavaretrofit.entity.HttpEntity;
+import dk.rxajavaretrofit.http.GankMethods;
 import dk.rxajavaretrofit.http.HttpMethods;
 import rx.Subscriber;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getGank(){
-        subscriber = new Subscriber<Gank>() {
+        subscriber = new Subscriber<GankDate>() {
             @Override
             public void onCompleted() {
                 Toast.makeText(MainActivity.this, "完成加载",
@@ -73,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNext(Gank gank) {
+            public void onNext(GankDate gank) {
                 resultTV.setText(gank.toString());
             }
         };
-        HttpMethods.getInstance().getGankDate(subscriber , 0 ,10);
+        GankMethods.getInstance().getGankDate(subscriber , 1);
     }
 }

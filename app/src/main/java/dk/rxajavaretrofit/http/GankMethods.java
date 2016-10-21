@@ -2,7 +2,7 @@ package dk.rxajavaretrofit.http;
 
 import java.util.concurrent.TimeUnit;
 
-import dk.rxajavaretrofit.entity.HttpEntity;
+import dk.rxajavaretrofit.entity.GankDate;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -12,19 +12,19 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by dk on 2016/10/18.
+ * Created by dk on 2016/10/21.
  */
 
-public class HttpMethods {
-
-    public static final String HttpsBASE_URL = "https://api.douban.com/v2/movie/";
+public class GankMethods {
+    public static final String GankBASE_URL = "http://gank.io";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
     private Retrofit retrofit;
     private HttpService httpService;
 
-    private HttpMethods(){
+
+    private GankMethods(){
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
         builder.connectTimeout(DEFAULT_TIMEOUT , TimeUnit.SECONDS);
 
@@ -32,35 +32,33 @@ public class HttpMethods {
                 .client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(HttpsBASE_URL)
+                .baseUrl(GankBASE_URL)
                 .build();
         httpService = retrofit.create(HttpService.class);
     }
-/**
- *  单例模式
- */
+    /**
+     *  单例模式
+     */
     private static class SingletonHolder{
-        private static final HttpMethods INSTANCE = new HttpMethods();
+        private static final GankMethods INSTANCE = new GankMethods();
     }
 
-    public static HttpMethods getInstance(){
-        return SingletonHolder.INSTANCE;
+    public static GankMethods getInstance(){
+        return GankMethods.SingletonHolder.INSTANCE;
     }
 
 
     /**
-     * 用于获取豆瓣电影Top250的数据
-     * @param subscriber  由调用者传过来的观察者对象
-     * @param start 起始位置
-     * @param count 获取长度
+     *
      */
-    public void getTopMovie(Subscriber<HttpEntity> subscriber  ,int start ,int count){
-        httpService.getTopMovie(start ,count)
+    public void getGankDate(Subscriber<GankDate> subscriber ,int page){
+        httpService.getGankDate(page)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
     }
-
 }
+
+
