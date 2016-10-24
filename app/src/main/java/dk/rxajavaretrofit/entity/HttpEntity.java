@@ -60,12 +60,13 @@ public class HttpEntity {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("title=" + title + "count=" + count + "start=" + start);
+        sb.append(title + "/");
         if(subjects != null){
             sb.append("subjects" + subjects.toString());
         }
         return sb.toString();
     }
+
 
     private class Subject{
         private String id;

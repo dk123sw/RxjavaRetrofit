@@ -1,5 +1,6 @@
 package dk.rxajavaretrofit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.click_me_BN2)
     public void click_BN2(){
         getGank();
+    }
+
+    @OnClick(R.id.click_me_BN3)
+    public void click_BN3(){
+        Intent intent = new Intent(MainActivity.this , DoubanActivity.class);
+        startActivity(intent);
     }
 
     private void getMovie(){
