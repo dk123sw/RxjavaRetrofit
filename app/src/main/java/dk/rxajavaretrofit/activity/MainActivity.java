@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.click_me_BN1)
     public void click_BN1(){
-        getMovie();
+        getTopMovie();
     }
 
     @OnClick(R.id.click_me_BN2)
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getMovie(){
+    private void getTopMovie(){
         subscriber = new Subscriber<HttpEntity>() {
             @Override
             public void onCompleted() {
