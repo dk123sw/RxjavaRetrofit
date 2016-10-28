@@ -1,26 +1,34 @@
 package dk.rxajavaretrofit.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
-import dk.rxajavaretrofit.Adapter.MoiveAdapter;
+import dk.rxajavaretrofit.Adapter.MoiveListsProvider;
 import dk.rxajavaretrofit.R;
-import dk.rxajavaretrofit.entity.HttpEntity;
+import dk.rxajavaretrofit.entity.Movie;
 import dk.rxajavaretrofit.http.MoiveMethods;
+import me.drakeet.multitype.MultiTypeAdapter;
 import rx.Subscriber;
 
-public class DoubanActivity extends AppCompatActivity {
+public class DoubanActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
-    @Bind(R.id.movie_listview)
-    ListView listView;
+//    @Bind(R.id.movie_listview)
+//    ListView listView;
+//    MoiveAdapter moiveAdapter;
     Toolbar mtoolbar;
-    MoiveAdapter moiveAdapter;
     Subscriber subscriber;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    MultiTypeAdapter adapter;
+    ArrayList<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +37,26 @@ public class DoubanActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mtoolbar);
-        moiveAdapter = new MoiveAdapter(DoubanActivity.this);
-        listView.setAdapter(moiveAdapter);
+//        moiveAdapter = new MoiveAdapter(DoubanActivity.this);
+//        listView.setAdapter(moiveAdapter);
         getMovie();
+        initView();
     }
 
+    private void initView(){
+        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        this.recyclerView = (RecyclerView) findViewById(R.id.rv_details);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MultiTypeAdapter(movies);
+        adapter.register(Movie.class ,new MoiveListsProvider());
+        recyclerView.setAdapter(adapter);
+        onRefresh();
+    }
+
+
     private void getMovie(){
-        subscriber = new Subscriber<HttpEntity>() {
+        subscriber = new Subscriber<Movie>() {
             @Override
             public void onCompleted() {
                 Toast.makeText(DoubanActivity.this, "完成加载",
@@ -48,11 +69,15 @@ public class DoubanActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNext(HttpEntity httpEntity) {
+            public void onNext(Movie movie) {
 
             }
         };
         MoiveMethods.getInstance().getMovie(subscriber , 0 ,10);
     }
 
+    @Override
+    public void onRefresh() {
+        MoiveMethods.getInstance().getMovie(subscriber , 0 ,10);
+    }
 }

@@ -1,12 +1,14 @@
 package dk.rxajavaretrofit.entity;
 
-import java.util.List;
+import java.io.Serializable;
+
+import me.drakeet.multitype.Item;
 
 /**
  * Created by dk on 2016/10/24.
  */
 
-public class Movie {
+public class Movie implements Item,Serializable{
 
     /**
      * rating : {"max":10,"average":9.6,"stars":"50","min":0}
@@ -18,93 +20,89 @@ public class Movie {
      * subtype : movie
      * directors : [{"alt":"https://movie.douban.com/celebrity/1047973/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/230.jpg","large":"https://img3.doubanio.com/img/celebrity/large/230.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/230.jpg"},"name":"弗兰克·德拉邦特","id":"1047973"}]
      * year : 1994
-     * images : {"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.jpg","large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p480747492.jpg","medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p480747492.jpg"}
+     * ima  ges : {"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.jpg","large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p480747492.jpg","medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p480747492.jpg"}
      * alt : https://movie.douban.com/subject/1292052/
      * id : 1292052
      */
+    private String id;
+    private String title;
+    private String subtype;
+    private String year;
+    private String alt;
+    private String original_title;
+    private String collect_count;
+    private RatingBean rating;
+    private ImageBean images;
 
-    private List<SubjectsBean> subjects;
-
-    public List<SubjectsBean> getSubjects() {
-        return subjects;
+    public ImageBean getImages() {
+        return images;
     }
 
-    public void setSubjects(List<SubjectsBean> subjects) {
-        this.subjects = subjects;
+    public void setImages(ImageBean images) {
+        this.images = images;
     }
 
-    public static class SubjectsBean {
-        private String title;
-        private String original_title;
-        private String year;
-        /**
-         * small : https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.jpg
-         * large : https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p480747492.jpg
-         * medium : https://img3.doubanio.com/view/movie_poster_cover/spst/public/p480747492.jpg
-         */
+    public String getId() {
+        return id;
+    }
 
-        private ImagesBean images;
-        private String alt;
-        private List<String> genres;
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public String getOriginal_title() {
-            return original_title;
-        }
+    public String getSubtype() {
+        return subtype;
+    }
 
-        public void setOriginal_title(String original_title) {
-            this.original_title = original_title;
-        }
+    public void setSubtype(String subtype) {
+        this.subtype = subtype;
+    }
 
-        public String getYear() {
-            return year;
-        }
+    public String getYear() {
+        return year;
+    }
 
-        public void setYear(String year) {
-            this.year = year;
-        }
+    public void setYear(String year) {
+        this.year = year;
+    }
 
-        public ImagesBean getImages() {
-            return images;
-        }
+    public String getAlt() {
+        return alt;
+    }
 
-        public void setImages(ImagesBean images) {
-            this.images = images;
-        }
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
 
-        public String getAlt() {
-            return alt;
-        }
+    public String getOriginal_title() {
+        return original_title;
+    }
 
-        public void setAlt(String alt) {
-            this.alt = alt;
-        }
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
 
-        public List<String> getGenres() {
-            return genres;
-        }
+    public String getCollect_count() {
+        return collect_count;
+    }
 
-        public void setGenres(List<String> genres) {
-            this.genres = genres;
-        }
+    public void setCollect_count(String collect_count) {
+        this.collect_count = collect_count;
+    }
 
-        public static class ImagesBean {
-            private String large;
+    public RatingBean getRating() {
+        return rating;
+    }
 
-            public String getLarge() {
-                return large;
-            }
-
-            public void setLarge(String large) {
-                this.large = large;
-            }
-        }
+    public void setRating(RatingBean rating) {
+        this.rating = rating;
     }
 }
