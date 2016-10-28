@@ -2,8 +2,9 @@ package dk.rxajavaretrofit.http;
 
 import java.util.concurrent.TimeUnit;
 
-import dk.rxajavaretrofit.entity.HttpEntity;
+import dk.rxajavaretrofit.entity.Movie;
 import okhttp3.OkHttpClient;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,8 +46,8 @@ public class MoiveMethods {
         return SingleO.Instance;
     }
 
-    public void getMovie(Subscriber<HttpEntity> subscriber  , int start , int count){
-        httpService.getTopMovie(start ,count)
+    public void getMovie(Subscriber<Response<Movie>> subscriber  , int start , int count){
+        httpService.getMovie(start ,count)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
